@@ -26,7 +26,14 @@ export interface Economy {
 }
 
 export function useEconomy() {
-  return useFetch<Economy>('/data/economy.json', { key: 'economy' })
+  // Load client-side: economy.json is a static file in public/, and Nuxt's dev
+  // server does not serve public assets during server-side rendering, which made
+  // the SSR fetch fail. Fetching in the browser works in both dev and production.
+  return useFetch<Economy>('/data/economy.json', {
+    key: 'economy',
+    server: false,
+    default: () => null
+  })
 }
 
 // Affordability status buckets. ~30% on rent is the common benchmark.
