@@ -15,8 +15,8 @@ a Python ETL pipeline cleans the data, and a Nuxt 3 / Vue 3 front-end visualises
 
 ## ✨ What it shows
 
-- **KPI cards** — average rent, net salary and affordability for the selected region, plus latest inflation.
-- **Affordability by region** — a horizontal bar chart ranking regions by rent as a % of net salary (≈30% is the common benchmark). The selected region is highlighted.
+- **KPI cards** — average rent, disposable income per capita and affordability for the selected region, plus latest inflation.
+- **Affordability by region** — a horizontal bar chart ranking regions by rent as a % of monthly disposable income (≈30% is the common benchmark). The selected region is highlighted.
 - **Inflation trend** — Greek HICP annual inflation over the last decade (the 2022 energy-crisis spike is clearly visible).
 - **Regions table** — full breakdown with an affordability status pill (Affordable / Stretched / Unaffordable).
 
@@ -33,12 +33,15 @@ a Python ETL pipeline cleans the data, and a Nuxt 3 / Vue 3 front-end visualises
 ## 📊 About the data
 
 - **Inflation** is **real data** from Eurostat (dataset `prc_hicp_aind`, indicator
-  `RCH_A_AVG`, geo `EL`), fetched live when the ETL runs online. If there's no
-  internet, it falls back to bundled values so the app always works.
-- **Regional rent & salary figures are indicative SAMPLE data**, included so the
-  app runs out of the box. 👉 **Replacing them with real data from
-  [ELSTAT](https://www.statistics.gr/) or Eurostat regional datasets is your first
-  great improvement** (see `etl/etl.py`, `REGIONS_RAW`).
+  `RCH_A_AVG`, geo `EL`), fetched live when the ETL runs online.
+- **Regional income** is **real data** from Eurostat (dataset `nama_10r_2hhinc`,
+  net disposable income per inhabitant `EUR_HAB`), produced by
+  [ELSTAT](https://www.statistics.gr/) and published via Eurostat.
+- **Rent figures are indicative market data** — rent by region is *not* an official
+  statistic, so replace them with a source you trust (e.g. Spitogatos / XE market
+  reports) in `etl/etl.py` (`REGIONS`). 👈 a great first improvement to make it yours.
+- Every network call **falls back to bundled values when offline**, so the app
+  always builds.
 
 ---
 

@@ -1,9 +1,9 @@
 {
   "meta": {
-    "generated_at": "2026-07-24T08:40:31.218577+00:00",
-    "inflation_source": "bundled fallback (offline)",
-    "income_source": "bundled fallback (offline)",
-    "income_real_count": 0,
+    "generated_at": "2026-07-25T16:05:01.135879+00:00",
+    "inflation_source": "Eurostat prc_hicp_aind (live)",
+    "income_source": "Eurostat nama_10r_2hhinc (live, EUR_HAB)",
+    "income_real_count": 13,
     "rent_source": "INDICATIVE market data — replace with a real source (e.g. Spitogatos / XE reports)",
     "note": "Affordability = 1BR monthly rent as % of monthly disposable income per inhabitant (lower is more affordable)."
   },
@@ -11,148 +11,168 @@
     {
       "region": "Western Macedonia",
       "code": "EL53",
-      "income_year_eur": 11300,
-      "income_month_eur": 942,
-      "income_is_real": false,
-      "income_year_ref": null,
+      "income_year_eur": 13200,
+      "income_month_eur": 1100,
+      "income_is_real": true,
+      "income_year_ref": 2023,
       "rent_1br_eur": 310,
       "rent_2br_eur": 410,
-      "affordability_pct": 32.9
-    },
-    {
-      "region": "Central Greece",
-      "code": "EL64",
-      "income_year_eur": 12000,
-      "income_month_eur": 1000,
-      "income_is_real": false,
-      "income_year_ref": null,
-      "rent_1br_eur": 340,
-      "rent_2br_eur": 450,
-      "affordability_pct": 34.0
-    },
-    {
-      "region": "Eastern Macedonia & Thrace",
-      "code": "EL51",
-      "income_year_eur": 10400,
-      "income_month_eur": 867,
-      "income_is_real": false,
-      "income_year_ref": null,
-      "rent_1br_eur": 300,
-      "rent_2br_eur": 400,
-      "affordability_pct": 34.6
-    },
-    {
-      "region": "Epirus",
-      "code": "EL54",
-      "income_year_eur": 10900,
-      "income_month_eur": 908,
-      "income_is_real": false,
-      "income_year_ref": null,
-      "rent_1br_eur": 320,
-      "rent_2br_eur": 430,
-      "affordability_pct": 35.2
-    },
-    {
-      "region": "Western Greece",
-      "code": "EL63",
-      "income_year_eur": 10800,
-      "income_month_eur": 900,
-      "income_is_real": false,
-      "income_year_ref": null,
-      "rent_1br_eur": 330,
-      "rent_2br_eur": 440,
-      "affordability_pct": 36.7
-    },
-    {
-      "region": "Thessaly",
-      "code": "EL61",
-      "income_year_eur": 11400,
-      "income_month_eur": 950,
-      "income_is_real": false,
-      "income_year_ref": null,
-      "rent_1br_eur": 350,
-      "rent_2br_eur": 470,
-      "affordability_pct": 36.8
-    },
-    {
-      "region": "North Aegean",
-      "code": "EL41",
-      "income_year_eur": 11000,
-      "income_month_eur": 917,
-      "income_is_real": false,
-      "income_year_ref": null,
-      "rent_1br_eur": 340,
-      "rent_2br_eur": 450,
-      "affordability_pct": 37.1
-    },
-    {
-      "region": "Peloponnese",
-      "code": "EL65",
-      "income_year_eur": 11500,
-      "income_month_eur": 958,
-      "income_is_real": false,
-      "income_year_ref": null,
-      "rent_1br_eur": 360,
-      "rent_2br_eur": 480,
-      "affordability_pct": 37.6
+      "affordability_pct": 28.2
     },
     {
       "region": "Ionian Islands",
       "code": "EL62",
-      "income_year_eur": 12200,
-      "income_month_eur": 1017,
-      "income_is_real": false,
-      "income_year_ref": null,
+      "income_year_eur": 16700,
+      "income_month_eur": 1392,
+      "income_is_real": true,
+      "income_year_ref": 2023,
       "rent_1br_eur": 420,
       "rent_2br_eur": 560,
-      "affordability_pct": 41.3
+      "affordability_pct": 30.2
+    },
+    {
+      "region": "Epirus",
+      "code": "EL54",
+      "income_year_eur": 12400,
+      "income_month_eur": 1033,
+      "income_is_real": true,
+      "income_year_ref": 2023,
+      "rent_1br_eur": 320,
+      "rent_2br_eur": 430,
+      "affordability_pct": 31.0
+    },
+    {
+      "region": "Eastern Macedonia & Thrace",
+      "code": "EL51",
+      "income_year_eur": 11100,
+      "income_month_eur": 925,
+      "income_is_real": true,
+      "income_year_ref": 2023,
+      "rent_1br_eur": 300,
+      "rent_2br_eur": 400,
+      "affordability_pct": 32.4
+    },
+    {
+      "region": "Western Greece",
+      "code": "EL63",
+      "income_year_eur": 11200,
+      "income_month_eur": 933,
+      "income_is_real": true,
+      "income_year_ref": 2023,
+      "rent_1br_eur": 330,
+      "rent_2br_eur": 440,
+      "affordability_pct": 35.4
+    },
+    {
+      "region": "Peloponnese",
+      "code": "EL65",
+      "income_year_eur": 12100,
+      "income_month_eur": 1008,
+      "income_is_real": true,
+      "income_year_ref": 2023,
+      "rent_1br_eur": 360,
+      "rent_2br_eur": 480,
+      "affordability_pct": 35.7
+    },
+    {
+      "region": "Central Greece",
+      "code": "EL64",
+      "income_year_eur": 11400,
+      "income_month_eur": 950,
+      "income_is_real": true,
+      "income_year_ref": 2023,
+      "rent_1br_eur": 340,
+      "rent_2br_eur": 450,
+      "affordability_pct": 35.8
+    },
+    {
+      "region": "Thessaly",
+      "code": "EL61",
+      "income_year_eur": 11700,
+      "income_month_eur": 975,
+      "income_is_real": true,
+      "income_year_ref": 2023,
+      "rent_1br_eur": 350,
+      "rent_2br_eur": 470,
+      "affordability_pct": 35.9
+    },
+    {
+      "region": "North Aegean",
+      "code": "EL41",
+      "income_year_eur": 11200,
+      "income_month_eur": 933,
+      "income_is_real": true,
+      "income_year_ref": 2023,
+      "rent_1br_eur": 340,
+      "rent_2br_eur": 450,
+      "affordability_pct": 36.4
     },
     {
       "region": "Central Macedonia (Thessaloniki)",
       "code": "EL52",
-      "income_year_eur": 12100,
-      "income_month_eur": 1008,
-      "income_is_real": false,
-      "income_year_ref": null,
+      "income_year_eur": 12400,
+      "income_month_eur": 1033,
+      "income_is_real": true,
+      "income_year_ref": 2023,
       "rent_1br_eur": 430,
       "rent_2br_eur": 560,
-      "affordability_pct": 42.7
-    },
-    {
-      "region": "Crete",
-      "code": "EL43",
-      "income_year_eur": 12600,
-      "income_month_eur": 1050,
-      "income_is_real": false,
-      "income_year_ref": null,
-      "rent_1br_eur": 480,
-      "rent_2br_eur": 640,
-      "affordability_pct": 45.7
+      "affordability_pct": 41.6
     },
     {
       "region": "South Aegean",
       "code": "EL42",
-      "income_year_eur": 13900,
-      "income_month_eur": 1158,
-      "income_is_real": false,
-      "income_year_ref": null,
+      "income_year_eur": 16100,
+      "income_month_eur": 1342,
+      "income_is_real": true,
+      "income_year_ref": 2023,
       "rent_1br_eur": 560,
       "rent_2br_eur": 760,
-      "affordability_pct": 48.4
+      "affordability_pct": 41.7
+    },
+    {
+      "region": "Crete",
+      "code": "EL43",
+      "income_year_eur": 12800,
+      "income_month_eur": 1067,
+      "income_is_real": true,
+      "income_year_ref": 2023,
+      "rent_1br_eur": 480,
+      "rent_2br_eur": 640,
+      "affordability_pct": 45.0
     },
     {
       "region": "Attica (Athens)",
       "code": "EL30",
       "income_year_eur": 15200,
       "income_month_eur": 1267,
-      "income_is_real": false,
-      "income_year_ref": null,
+      "income_is_real": true,
+      "income_year_ref": 2023,
       "rent_1br_eur": 620,
       "rent_2br_eur": 830,
       "affordability_pct": 48.9
     }
   ],
   "inflation": [
+    {
+      "year": 2011,
+      "hicp": 3.1
+    },
+    {
+      "year": 2012,
+      "hicp": 1.0
+    },
+    {
+      "year": 2013,
+      "hicp": -0.9
+    },
+    {
+      "year": 2014,
+      "hicp": -1.4
+    },
+    {
+      "year": 2015,
+      "hicp": -1.1
+    },
     {
       "year": 2016,
       "hicp": 0.0
@@ -191,7 +211,7 @@
     },
     {
       "year": 2025,
-      "hicp": 2.6
+      "hicp": 2.9
     }
   ]
 }

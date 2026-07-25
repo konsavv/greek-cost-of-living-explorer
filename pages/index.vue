@@ -113,7 +113,7 @@ const latestInflation = computed(() => {
       <footer class="note">
         <strong>About the data.</strong> Inflation (Eurostat <code>prc_hicp_aind</code>)
         and regional <strong>disposable income per inhabitant</strong> (Eurostat
-        <code>tgs00026</code>, produced by
+        <code>nama_10r_2hhinc</code>, EUR per inhabitant, produced by
         <a href="https://www.statistics.gr/" target="_blank" rel="noopener">ELSTAT</a>)
         are fetched live by the ETL, with a bundled fallback when offline
         ({{ economy.meta.income_real_count }}/{{ economy.regions.length }} regions on

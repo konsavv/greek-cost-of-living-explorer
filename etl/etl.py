@@ -5,11 +5,11 @@ Produces ../public/data/economy.json which the Nuxt front-end reads.
 
 Data sources (all official / open):
   1. INFLATION  -> Greek HICP annual inflation, Eurostat dataset `prc_hicp_aind`.
-  2. REGIONAL INCOME -> REAL disposable income of private households per
-                        inhabitant, per Greek NUTS-2 region, Eurostat dataset
-                        `tgs00026`. ELSTAT produces these figures and publishes
-                        them through Eurostat (Greece has no equivalent open
-                        REST API of its own).
+  2. REGIONAL INCOME -> REAL net disposable income of private households per
+                        inhabitant (EUR_HAB), per Greek NUTS-2 region, Eurostat
+                        dataset `nama_10r_2hhinc`. ELSTAT produces these figures
+                        and publishes them through Eurostat (Greece has no
+                        equivalent open REST API of its own).
   3. RENT       -> average monthly rent per region. NOTE: rent by region is NOT
                    an official statistic (it is private-market data). The values
                    here are INDICATIVE and clearly flagged; replace them with a
@@ -113,41 +113,46 @@ def fetch_regional_income():
     "unit": str}}. Self-discovers the per-inhabitant unit so we don't depend on
     a hard-coded unit code. Falls back to {} if offline.
     """
+    # nama_10r_2hhinc gives income PER INHABITANT (EUR_HAB). We pin that unit so
+    # we never accidentally read a regional TOTAL (e.g. tgs00026 only offers
+    # "million PPS", which would make the affordability ratio meaningless).
+    UNIT = "EUR_HAB"
     geo_params = "".join(f"&geo={r['code']}" for r in REGIONS)
-    url = f"{EUROSTAT}/tgs00026?format=JSON&freq=A&direct=BAL&na_item=B6N{geo_params}"
+    url = (f"{EUROSTAT}/nama_10r_2hhinc?format=JSON"
+           f"&freq=A&unit={UNIT}&direct=BAL&na_item=B6N{geo_params}")
     try:
         js = get_json(url)
         dims, sizes = js["id"], js["size"]
         geo_idx = js["dimension"]["geo"]["category"]["index"]
         time_idx = js["dimension"]["time"]["category"]["index"]
-        unit_idx = js["dimension"]["unit"]["category"]["index"]
 
-        # Prefer a per-inhabitant unit (code contains "HAB"); else the first one.
-        def unit_rank(code):
-            c = code.upper()
-            return (0 if "EUR" in c and "HAB" in c else
-                    1 if "HAB" in c else 2, code)
-        chosen_unit = sorted(unit_idx, key=unit_rank)[0]
-        chosen_unit_pos = unit_idx[chosen_unit]
+        # Safety: the response's unit dimension must be the per-inhabitant one.
+        unit_codes = list(js["dimension"]["unit"]["category"]["index"])
+        if not any("HAB" in u.upper() for u in unit_codes):
+            raise ValueError(f"no per-inhabitant unit in response ({unit_codes})")
 
-        p_geo, p_time, p_unit = dims.index("geo"), dims.index("time"), dims.index("unit")
+        p_geo, p_time = dims.index("geo"), dims.index("time")
         idx2geo = {v: k for k, v in geo_idx.items()}
         idx2year = {v: k for k, v in time_idx.items()}
 
         best = {}  # geo -> (year, value)
         for flat, val in js["value"].items():
-            coords = unflatten(int(flat), sizes)
-            if coords[p_unit] != chosen_unit_pos:
+            if val is None:
                 continue
+            coords = unflatten(int(flat), sizes)
             g = idx2geo.get(coords[p_geo])
             y = int(idx2year.get(coords[p_time], 0))
-            if g and (g not in best or y > best[g][0]):
-                best[g] = (y, float(val))
+            # Sanity: annual disposable income per inhabitant is realistically
+            # a few thousand to a few tens of thousands of euros. Anything wildly
+            # outside that means we grabbed the wrong measure -> reject.
+            if g and 2000 <= float(val) <= 60000:
+                if g not in best or y > best[g][0]:
+                    best[g] = (y, float(val))
 
         if not best:
             raise ValueError("empty income response")
-        return {g: {"value": v, "year": y, "unit": chosen_unit} for g, (y, v) in best.items()}, \
-               f"Eurostat tgs00026 (live, unit {chosen_unit})"
+        return {g: {"value": v, "year": y, "unit": UNIT} for g, (y, v) in best.items()}, \
+               f"Eurostat nama_10r_2hhinc (live, {UNIT})"
     except Exception as e:  # noqa: BLE001
         print(f"[etl] regional income live fetch failed ({e}); using fallback.")
         return {}, "bundled fallback (offline)"
@@ -186,6 +191,7 @@ def build_regions(income_map):
 
 def main():
     inflation, inflation_source = fetch_inflation()
+    inflation = inflation[-15:]  # keep the last 15 years for a readable chart
     income_map, income_source = fetch_regional_income()
     regions = build_regions(income_map)
     n_real = sum(1 for r in regions if r["income_is_real"])
